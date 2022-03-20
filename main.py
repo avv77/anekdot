@@ -94,6 +94,8 @@ def func(message):
         btn3 = types.KeyboardButton("Тосты")
         markup.add(btn1, btn2, btn3)
         bot.send_message(message.chat.id, text="Вы вернулись в главное меню", reply_markup=markup)
+    else:
+        bot.send_message(message.chat.id, text="Выберите нужный пункт меню")
 
 
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
