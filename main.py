@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import random
 import telebot
@@ -12,87 +13,87 @@ server = Flask(__name__)
 logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
-# jokes_vovochka = list_faile('file_base/anekdoty/Vovochka.txt')
-# jokes_medezina = list_faile_2()
-# jokes_ohota = list_faile_3()
-# jokes_rjevskiy = list_faile_4('file_base/anekdoty/Rjevskiy.txt')
-# jokes_schtirliz = list_faile_4('file_base/anekdoty/Schtirliz.txt')
-# jokes_aforizm = list_faile('file_base/aforizmy/aforizmy.txt')
-# jokes_zenskie = list_faile('file_base/tost/zenskie.txt')
-# jokes_men = list_faile('file_base/tost/men.txt')
-# jokes_svadba = list_faile('file_base/tost/svadba.txt')
-# jokes_prikol = list_faile('file_base/tost/prikol.txt')
-# jokes_army = list_faile('file_base/tost/army.txt')
-# jokes_new_year = list_faile('file_base/tost/noviy_god.txt')
+jokes_vovochka = list_faile('file_base/anekdoty/Vovochka.txt')
+jokes_medezina = list_faile_2()
+jokes_ohota = list_faile_3()
+jokes_rjevskiy = list_faile_4('file_base/anekdoty/Rjevskiy.txt')
+jokes_schtirliz = list_faile_4('file_base/anekdoty/Schtirliz.txt')
+jokes_aforizm = list_faile('file_base/aforizmy/aforizmy.txt')
+jokes_zenskie = list_faile('file_base/tost/zenskie.txt')
+jokes_men = list_faile('file_base/tost/men.txt')
+jokes_svadba = list_faile('file_base/tost/svadba.txt')
+jokes_prikol = list_faile('file_base/tost/prikol.txt')
+jokes_army = list_faile('file_base/tost/army.txt')
+jokes_new_year = list_faile('file_base/tost/noviy_god.txt')
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, text='Привет, {0.first_name}! Получи свой анекдот, тост или афоризм на сегодня.'
-                                           ' Улыбнись - пусть тебе повезет. Доброго дня! '.format(message.from_user))
+    bot.send_message(message.chat.id, text='РџСЂРёРІРµС‚, {0.first_name}! РџРѕР»СѓС‡Рё СЃРІРѕР№ Р°РЅРµРєРґРѕС‚, С‚РѕСЃС‚ РёР»Рё Р°С„РѕСЂРёР·Рј РЅР° СЃРµРіРѕРґРЅСЏ.'
+                                           ' РЈР»С‹Р±РЅРёСЃСЊ - РїСѓСЃС‚СЊ С‚РµР±Рµ РїРѕРІРµР·РµС‚. Р”РѕР±СЂРѕРіРѕ РґРЅСЏ! '.format(message.from_user))
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("Анекдоты")
-    btn2 = types.KeyboardButton("Афоризмы")
-    btn3 = types.KeyboardButton("Тосты")
+    btn1 = types.KeyboardButton("РђРЅРµРєРґРѕС‚С‹")
+    btn2 = types.KeyboardButton("РђС„РѕСЂРёР·РјС‹")
+    btn3 = types.KeyboardButton("РўРѕСЃС‚С‹")
     markup.add(btn1, btn2, btn3)
-    bot.send_message(message.chat.id, text='Выбери раздел'.format(message.from_user),
+    bot.send_message(message.chat.id, text='Р’С‹Р±РµСЂРё СЂР°Р·РґРµР»'.format(message.from_user),
                      reply_markup=markup)
 
 
-# @bot.message_handler(content_types=['text'])
-# def func(message):
-#     if message.text == "Анекдоты":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         btn3 = types.KeyboardButton("от Вовочки")
-#         btn4 = types.KeyboardButton("про медицину")
-#         btn5 = types.KeyboardButton("охота и отдых")
-#         btn6 = types.KeyboardButton("Ржевский")
-#         btn7 = types.KeyboardButton("Штирлиц")
-#         back = types.KeyboardButton("Основное меню")
-#         markup.add(btn3, btn4, btn5, btn6, btn7, back)
-#         bot.send_message(message.chat.id, text="Выбери раздел анекдота", reply_markup=markup)
-#     elif message.text == "Тосты":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         btn3 = types.KeyboardButton("Женские")
-#         btn4 = types.KeyboardButton("Мужские")
-#         btn5 = types.KeyboardButton("Свадебные")
-#         btn6 = types.KeyboardButton("Веселые")
-#         btn7 = types.KeyboardButton("Армейские")
-#         btn8 = types.KeyboardButton("Новый год")
-#         back = types.KeyboardButton("Основное меню")
-#         markup.add(btn3, btn4, btn5, btn6, btn7, btn8, back)
-#         bot.send_message(message.chat.id, text="Выбери раздел", reply_markup=markup)
-#     elif message.text == "от Вовочки":
-#         bot.send_message(message.from_user.id, random.choice(jokes_vovochka))
-#     elif message.text == "про медицину":
-#         bot.send_message(message.from_user.id, random.choice(jokes_medezina))
-#     elif message.text == "охота и отдых":
-#         bot.send_message(message.from_user.id, random.choice(jokes_ohota))
-#     elif message.text == "Ржевский":
-#         bot.send_message(message.from_user.id, random.choice(jokes_rjevskiy))
-#     elif message.text == "Штирлиц":
-#         bot.send_message(message.from_user.id, random.choice(jokes_schtirliz))
-#     elif message.text == "Афоризмы":
-#         bot.send_message(message.from_user.id, random.choice(jokes_aforizm))
-#     elif message.text == "Женские":
-#         bot.send_message(message.from_user.id, random.choice(jokes_zenskie))
-#     elif message.text == "Мужские":
-#         bot.send_message(message.from_user.id, random.choice(jokes_men))
-#     elif message.text == "Свадебные":
-#         bot.send_message(message.from_user.id, random.choice(jokes_svadba))
-#     elif message.text == "Веселые":
-#         bot.send_message(message.from_user.id, random.choice(jokes_prikol))
-#     elif message.text == "Армейские":
-#         bot.send_message(message.from_user.id, random.choice(jokes_army))
-#     elif message.text == "Новый год":
-#         bot.send_message(message.from_user.id, random.choice(jokes_new_year))
-#     elif message.text == "Основное меню":
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#         btn1 = types.KeyboardButton("Анекдоты")
-#         btn2 = types.KeyboardButton("Афоризмы")
-#         btn3 = types.KeyboardButton("Тосты")
-#         markup.add(btn1, btn2, btn3)
-#         bot.send_message(message.chat.id, text="Вы вернулись в главное меню", reply_markup=markup)
+@bot.message_handler(content_types=['text'])
+def func(message):
+    if message.text == "РђРЅРµРєРґРѕС‚С‹":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn3 = types.KeyboardButton("РѕС‚ Р’РѕРІРѕС‡РєРё")
+        btn4 = types.KeyboardButton("РїСЂРѕ РјРµРґРёС†РёРЅСѓ")
+        btn5 = types.KeyboardButton("РѕС…РѕС‚Р° Рё РѕС‚РґС‹С…")
+        btn6 = types.KeyboardButton("Р Р¶РµРІСЃРєРёР№")
+        btn7 = types.KeyboardButton("РЁС‚РёСЂР»РёС†")
+        back = types.KeyboardButton("РћСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ")
+        markup.add(btn3, btn4, btn5, btn6, btn7, back)
+        bot.send_message(message.chat.id, text="Р’С‹Р±РµСЂРё СЂР°Р·РґРµР» Р°РЅРµРєРґРѕС‚Р°", reply_markup=markup)
+    elif message.text == "РўРѕСЃС‚С‹":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn3 = types.KeyboardButton("Р–РµРЅСЃРєРёРµ")
+        btn4 = types.KeyboardButton("РњСѓР¶СЃРєРёРµ")
+        btn5 = types.KeyboardButton("РЎРІР°РґРµР±РЅС‹Рµ")
+        btn6 = types.KeyboardButton("Р’РµСЃРµР»С‹Рµ")
+        btn7 = types.KeyboardButton("РђСЂРјРµР№СЃРєРёРµ")
+        btn8 = types.KeyboardButton("РќРѕРІС‹Р№ РіРѕРґ")
+        back = types.KeyboardButton("РћСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ")
+        markup.add(btn3, btn4, btn5, btn6, btn7, btn8, back)
+        bot.send_message(message.chat.id, text="Р’С‹Р±РµСЂРё СЂР°Р·РґРµР»", reply_markup=markup)
+    elif message.text == "РѕС‚ Р’РѕРІРѕС‡РєРё":
+        bot.send_message(message.from_user.id, random.choice(jokes_vovochka))
+    elif message.text == "РїСЂРѕ РјРµРґРёС†РёРЅСѓ":
+        bot.send_message(message.from_user.id, random.choice(jokes_medezina))
+    elif message.text == "РѕС…РѕС‚Р° Рё РѕС‚РґС‹С…":
+        bot.send_message(message.from_user.id, random.choice(jokes_ohota))
+    elif message.text == "Р Р¶РµРІСЃРєРёР№":
+        bot.send_message(message.from_user.id, random.choice(jokes_rjevskiy))
+    elif message.text == "РЁС‚РёСЂР»РёС†":
+        bot.send_message(message.from_user.id, random.choice(jokes_schtirliz))
+    elif message.text == "РђС„РѕСЂРёР·РјС‹":
+        bot.send_message(message.from_user.id, random.choice(jokes_aforizm))
+    elif message.text == "Р–РµРЅСЃРєРёРµ":
+        bot.send_message(message.from_user.id, random.choice(jokes_zenskie))
+    elif message.text == "РњСѓР¶СЃРєРёРµ":
+        bot.send_message(message.from_user.id, random.choice(jokes_men))
+    elif message.text == "РЎРІР°РґРµР±РЅС‹Рµ":
+        bot.send_message(message.from_user.id, random.choice(jokes_svadba))
+    elif message.text == "Р’РµСЃРµР»С‹Рµ":
+        bot.send_message(message.from_user.id, random.choice(jokes_prikol))
+    elif message.text == "РђСЂРјРµР№СЃРєРёРµ":
+        bot.send_message(message.from_user.id, random.choice(jokes_army))
+    elif message.text == "РќРѕРІС‹Р№ РіРѕРґ":
+        bot.send_message(message.from_user.id, random.choice(jokes_new_year))
+    elif message.text == "РћСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn1 = types.KeyboardButton("РђРЅРµРєРґРѕС‚С‹")
+        btn2 = types.KeyboardButton("РђС„РѕСЂРёР·РјС‹")
+        btn3 = types.KeyboardButton("РўРѕСЃС‚С‹")
+        markup.add(btn1, btn2, btn3)
+        bot.send_message(message.chat.id, text="Р’С‹ РІРµСЂРЅСѓР»РёСЃСЊ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ", reply_markup=markup)
 
 
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
