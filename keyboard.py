@@ -18,10 +18,10 @@ def keyboard2():
 
 def keyboard1():
     keyboard = types.InlineKeyboardMarkup()
-    key_anecdote = types.InlineKeyboardButton('Анекдоты', callback_data='anecdote', row_width=1)
-    key_aphorism = types.InlineKeyboardButton('Афоризмы', callback_data='aphorism', row_width=2)
+    key_anecdote = types.InlineKeyboardButton('Анекдоты', callback_data='anecdote')
+    key_aphorism = types.InlineKeyboardButton('Афоризмы', callback_data='aphorism')
     keyboard.add(key_anecdote, key_aphorism)
-    key_toast = types.InlineKeyboardButton('Тосты', callback_data='toast', row_width=1)
+    key_toast = types.InlineKeyboardButton('Тосты', callback_data='toast')
     keyboard.add(key_toast)
     return keyboard
 
