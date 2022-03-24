@@ -53,15 +53,15 @@ def func(message):
         markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
         bot.send_message(message.chat.id, text='Выбери раздел анекдота, который тебя интересует', reply_markup=markup)
     elif message.text == "от Вовочки":
-        random.choice(jokes_vovochka)
+        bot.send_message(message.chat.id, text=random.choice(jokes_vovochka))
     elif message.text == "про медицину":
-        random.choice(jokes_medezina)
+        bot.send_message(message.chat.id, text=random.choice(jokes_medezina))
     elif message.text == "охота и отдых":
-        random.choice(jokes_ohota)
+        bot.send_message(message.chat.id, text=random.choice(jokes_ohota))
     elif message.text == "Ржевский":
-        random.choice(jokes_rjevskiy)
+        bot.send_message(message.chat.id, text=random.choice(jokes_rjevskiy))
     elif message.text == "Штирлиц":
-        random.choice(jokes_schtirliz)
+        bot.send_message(message.chat.id, text=random.choice(jokes_schtirliz))
     elif message.text == "Основное меню":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = types.KeyboardButton("Анекдоты")
@@ -70,7 +70,7 @@ def func(message):
         markup.add(btn1, btn2, btn3)
         bot.send_message(message.chat.id, text='Выбери раздел, который тебя интересует', reply_markup=markup)
     elif message.text == "Афоризмы":
-        random.choice(jokes_aforizm)
+        bot.send_message(message.chat.id, text=random.choice(jokes_aforizm))
     elif message.text == "Тосты":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = types.KeyboardButton("Женские")
@@ -83,17 +83,17 @@ def func(message):
         markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
         bot.send_message(message.chat.id, text='Выбери раздел тостов, который тебя интересует', reply_markup=markup)
     elif message.text == "Женские":
-        random.choice(jokes_zenskie)
+        bot.send_message(message.chat.id, text=random.choice(jokes_zenskie))
     elif message.text == "Мужские":
-        random.choice(jokes_men)
+        bot.send_message(message.chat.id, text=random.choice(jokes_men))
     elif message.text == "Свадебные":
-        random.choice(jokes_svadba)
+        bot.send_message(message.chat.id, text=random.choice(jokes_svadba))
     elif message.text == "Веселые":
-        random.choice(jokes_prikol)
+        bot.send_message(message.chat.id, text=random.choice(jokes_prikol))
     elif message.text == "Армейские":
-        random.choice(jokes_army)
+        bot.send_message(message.chat.id, text=random.choice(jokes_army))
     elif message.text == "Новый год":
-        random.choice(jokes_new_year)
+        bot.send_message(message.chat.id, text=random.choice(jokes_new_year))
 
 
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
