@@ -7,6 +7,7 @@ from config import *
 from formuls import list_faile, list_faile_2, list_faile_3, list_faile_4
 import logging
 from flask import Flask, request
+import psycopg2
 
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -27,9 +28,14 @@ jokes_prikol = list_faile('file_base/tost/prikol.txt')
 jokes_army = list_faile('file_base/tost/army.txt')
 jokes_new_year = list_faile('file_base/tost/noviy_god.txt')
 
+db_connection = psycopg2.connect(DB_URI, sslmode='require')
+db_object = db_connection.cursor()
+
 
 @bot.message_handler(commands=['start'])
 def start(message):
+    id = message.from_user.id
+    username = message.from_user.username
     bot.send_message(message.chat.id, text='Привет, {0.first_name}! Получи свой анекдот, тост или афоризм на сегодня.'
                                            ' Улыбнись - пусть тебе повезет. Доброго дня! '.format(message.from_user))
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -38,6 +44,14 @@ def start(message):
     btn3 = types.KeyboardButton("Тосты")
     markup.add(btn1, btn2, btn3)
     bot.send_message(message.chat.id, text='Выбери раздел, который тебя интересует', reply_markup=markup)
+
+    db_object.execute(f'SELECT id FROM users WHERE id = {id}')
+    result = db_object.fetchone()
+
+    if not result:
+        db_object.execute('INSERT INTO users(id, username, anekdot, tost, aforizm) VALUES (%s, %s, %s, %s, %s)',
+                          (id, username, 0, 0, 0))
+        db_connection.commit()
 
 
 @bot.message_handler(content_types=['text'])
