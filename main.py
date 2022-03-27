@@ -35,7 +35,7 @@ db_object = db_connection.cursor()
 @bot.message_handler(commands=['start'])
 def start(message):
     id = message.from_user.id
-    username = message.from_user.username
+    username = message.from_user.first_name
     bot.send_message(message.chat.id, text='Привет, {0.first_name}! Получи свой анекдот, тост или афоризм на сегодня.'
                                            ' Улыбнись - пусть тебе повезет. Доброго дня! '.format(message.from_user))
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
