@@ -32,9 +32,24 @@ db_connection = psycopg2.connect(DB_URI, sslmode='require')
 db_object = db_connection.cursor()
 
 
+def update_anekdot_count(user_id):
+    db_object.execute(f'UPDATE users SET anekdot  = anekdot + 1 WHERE id = {user_id}')
+    db_connection.commit()
+
+
+def update_tost_count(user_id):
+    db_object.execute(f'UPDATE users SET tost  = tost + 1 WHERE id = {user_id}')
+    db_connection.commit()
+
+
+def update_aforizm_count(user_id):
+    db_object.execute(f'UPDATE users SET aforizm  = aforizm + 1 WHERE id = {user_id}')
+    db_connection.commit()
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
-    id = message.from_user.id
+    user_id = message.from_user.id
     username = message.from_user.first_name
     bot.send_message(message.chat.id, text='Привет, {0.first_name}! Получи свой анекдот, тост или афоризм на сегодня.'
                                            ' Улыбнись - пусть тебе повезет. Доброго дня! '.format(message.from_user))
@@ -45,7 +60,7 @@ def start(message):
     markup.add(btn1, btn2, btn3)
     bot.send_message(message.chat.id, text='Выбери раздел, который тебя интересует', reply_markup=markup)
 
-    db_object.execute(f'SELECT id FROM users WHERE id = {id}')
+    db_object.execute(f'SELECT id FROM users WHERE id = {user_id}')
     result = db_object.fetchone()
 
     if not result:
@@ -66,6 +81,10 @@ def func(message):
         btn6 = types.KeyboardButton("Основное меню")
         markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
         bot.send_message(message.chat.id, text='Выбери раздел анекдота, который тебя интересует', reply_markup=markup)
+
+        user_id = message.from_user.id
+        update_anekdot_count(user_id)
+
     elif message.text == "от Вовочки":
         bot.send_message(message.chat.id, text=random.choice(jokes_vovochka))
     elif message.text == "про медицину":
@@ -85,6 +104,8 @@ def func(message):
         bot.send_message(message.chat.id, text='Выбери раздел, который тебя интересует', reply_markup=markup)
     elif message.text == "Афоризмы":
         bot.send_message(message.chat.id, text=random.choice(jokes_aforizm))
+        user_id = message.from_user.id
+        update_aforizm_count(user_id)
     elif message.text == "Тосты":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = types.KeyboardButton("Женские")
@@ -96,6 +117,9 @@ def func(message):
         btn7 = types.KeyboardButton("Основное меню")
         markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
         bot.send_message(message.chat.id, text='Выбери раздел тостов, который тебя интересует', reply_markup=markup)
+
+        user_id = message.from_user.id
+        update_tost_count(user_id)
     elif message.text == "Женские":
         bot.send_message(message.chat.id, text=random.choice(jokes_zenskie))
     elif message.text == "Мужские":
