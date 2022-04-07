@@ -1,4 +1,5 @@
 
+
 def list_faile(path):
     jokes_vovochka = []
     line_complit = ''
