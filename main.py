@@ -65,7 +65,7 @@ def start(message):
 
     if not result:
         db_object.execute('INSERT INTO users(id, username, anekdot, tost, aforizm) VALUES (%s, %s, %s, %s, %s)',
-                          (id, username, 0, 0, 0))
+                          (user_id, username, 0, 0, 0))
         db_connection.commit()
 
 
