@@ -28,9 +28,6 @@ jokes_prikol = list_faile('file_base/tost/prikol.txt')
 jokes_army = list_faile('file_base/tost/army.txt')
 jokes_new_year = list_faile('file_base/tost/noviy_god.txt')
 
-db_connection = psycopg2.connect(DB_URI, sslmode='require')
-db_object = db_connection.cursor()
-
 
 def update_anekdot_count(user_id):
     db_object.execute(f'UPDATE users SET anekdot  = anekdot + 1 WHERE id = {user_id}')
@@ -143,6 +140,8 @@ def redirect_message():
 
 
 if __name__ == "__main__":
+    db_connection = psycopg2.connect(DB_URI, sslmode='require')
+    db_object = db_connection.cursor()
     bot.remove_webhook()
     bot.set_webhook(url=APP_URL)
     server.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
